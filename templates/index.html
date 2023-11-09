@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ASL Sign Language Recognition</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 25px;
+            margin-top: 1px;
+        }
+
+        #video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #video-stream {
+            width: 640px;
+            height: 480px;
+            margin: 2px auto;
+            border: 2px solid #333;
+            border-radius: 10px;
+        }
+
+        #predict-button {
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }   
+
+        #predict-button:hover {
+            background-color: #0056b3;
+        }
+
+        #prediction-result {
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        #predicted-character {
+            font-size: 16px;
+        }
+
+        #confidence {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ASL Sign Language Recognition</h1>
+    <div id="video-container">
+        <img id="video-stream" src="{{ url_for('index') }}">
+        <button id="predict-button" onclick="predictGesture()">Predict Gesture</button>
+    </div>
+    <div id="prediction-result">
+        <h2>Prediction:</h2>
+        <p id="predicted-character">Predicted Character: -</p>
+        <p id="confidence">Confidence: -</p>
+    </div>
+    <script>
+        function predictGesture() {
+            fetch('/predict')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('predicted-character').textContent = 'Predicted Character: ' + data.character;
+                    document.getElementById('confidence').textContent = 'Confidence: ' + data.confidence + '%';
+                });
+        }
+    </script>
+</body>
+</html>
