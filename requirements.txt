@@ -1,0 +1,13 @@
+numpy
+pandas
+seaborn 
+matplotlib
+opencv-python
+scikit-image
+tensorflow
+keras
+mediapipe
+cython
+pycocotools
+sklearn
+flask
